@@ -18,7 +18,7 @@ class Despesa {
 			return false
 		}
 		return true
-	}  	
+	} 	
 }
 
 class Bd{
@@ -49,7 +49,6 @@ class Bd{
 		let despesas = Array()
 
 		let id = localStorage.getItem('id')
-
 		//recuperar todas as despesas cadastradas em localStorage
 		for (let i = 1; i <= id; i++){
 			//recuperar a despesa e convertendo string JSON para objeto literal
@@ -74,8 +73,6 @@ class Bd{
 		let despesasFiltradas = Array
 		
 		despesasFiltradas = this.recuperarTodosRegistros()
-
-		
 
 		//console.log(despesa)
 
@@ -135,14 +132,10 @@ function cadastrarDespesa(){
 	let descricao = document.getElementById('descricao')
 	let valor = document.getElementById('valor')
 
-	
-	
 	let despesa = new Despesa (ano.value, mes.value, dia.value, tipo.value, descricao.value, valor.value)
-
 
 	if (despesa.validarDados()){
 		bd.gravar(despesa)
-
 		// atribuindo ao modal em HTML o titulo devido a situação
 		document.getElementById('modal_titulo').innerHTML = 'Registro inserido com sucesso!'
 		// atribuindo a div do titulo o tipo do modal e a cor de acordo com a class e situação.
@@ -175,7 +168,6 @@ function cadastrarDespesa(){
 		//dialog de erro
 		$('#modalRegistraDespesa').modal('show')
 
-
 	}
 		
 }
@@ -199,17 +191,12 @@ function carregaListaDespesas(despesas = Array(), filtro = false){
         </tr>
 	*/
 
-
-
 	//percorrer o array despesas, listando cada despesa de forma dinâmica
 
 	despesas.forEach(function(d){
 		
 		//criando a linha (tr)
 		linha = listaDespesas.insertRow()
-
-		
-		
 
 		//Ajustar o tipo
 		switch(d.tipo){
@@ -222,6 +209,8 @@ function carregaListaDespesas(despesas = Array(), filtro = false){
 			case '4': d.tipo = 'Saúde'
 			break
 			case '5': d.tipo = 'Transporte'
+			break
+			case '6': d.tipo = 'Outros'
 			break
 		}
 
@@ -257,33 +246,24 @@ function carregaListaDespesas(despesas = Array(), filtro = false){
 		
 			//dialog de remoção com sucesso
 			$('#modalDeletaDespesa').modal('show')
-
 			//window.location.reload()
-
 			//alert('Item removido com sucesso')
-
 		}
 		linha.insertCell(4).append(btn)
-
 		//console.log(d)
-
 	})
-
 		//gerar total
 		let total = 0
-		
 		//valida em despesas o total
-
 		despesas.forEach(function(item){
 			
 			total += Number(item.valor)
 			// arredondando para 2 casas após a virgula
 			total = parseFloat(total.toFixed(2))
 
-			
 		})
 
-		document.getElementById('total').innerHTML = `Total de despesas: ${total}`
+		document.getElementById('total').innerHTML = `Total de despesas: R$ ${total}`
 }
 
 function pesquisarDespesa(){
@@ -297,9 +277,7 @@ function pesquisarDespesa(){
 	let despesa = new Despesa(ano, mes, dia, tipo, descricao, valor)
 
 	let despesas = bd.pesquisar(despesa)
-
 	//chamando a função carregaListaDespesas, passando como parametro as despesas recuperadas.
-
 	carregaListaDespesas(despesas, true)
 }
 
