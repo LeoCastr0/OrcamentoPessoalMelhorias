@@ -14,8 +14,11 @@ class Despesa {
 				return false
 			}
 		}
+		if (this.dia > 31 || this.dia < 1) {
+			return false
+		}
 		return true
-	} 	
+	}  	
 }
 
 class Bd{
